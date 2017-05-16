@@ -6,11 +6,75 @@ import java.util.Formatter;
  * @author P. N. Hilfinger, with some modifications by Josh Hug and melaniecebula
  *         [Do not modify this file.]
  */
-public class IntList {
+public class IntListCYDiscussion {
 
     public static void main(String[] args){
+        IntListCYDiscussion a = IntListCYDiscussion.list(5, 2, 3);
+        IntListCYDiscussion b = IntListCYDiscussion.iterativeSquareNonDestructiveCY(a);
+        System.out.println("original: " + a);
+        System.out.println("new: " + b);
     }
 
+
+    public static IntListCYDiscussion recursiveSquareDestructiveCY(IntListCYDiscussion L){
+        if (L == null){
+            return L;
+        } else {
+            L.first *= L.first;
+            recursiveSquareDestructiveCY(L.rest);
+        }
+        return L;
+    }
+
+    public static IntListCYDiscussion iterativeSquareNonDestructiveCY(IntListCYDiscussion L){
+        IntListCYDiscussion X;
+        X = new IntListCYDiscussion(L.first * L.first, null);
+        L = L.rest;
+        while (L != null){
+            X = new IntListCYDiscussion(L.first * L.first, X);
+            L = L.rest;
+        }
+
+        IntListCYDiscussion Y = new IntListCYDiscussion(X.first, null);
+        X = X.rest;
+        while (X != null){
+        Y = new IntListCYDiscussion(X.first, Y);
+        X = X.rest;
+        }
+
+        return Y;
+    }
+    /**
+     * Made for discussion sheet
+     * @param L
+     * @return
+     */
+    public static IntListCYDiscussion squareDestructiveCY(IntListCYDiscussion L){
+        IntListCYDiscussion B = L;
+        while (B != null){
+            B.first *= B.first;
+            B = B.rest;
+        }
+        return L;
+    }
+
+    /**
+     * Made for discussion sheet
+     * @param L
+     * @return
+     */
+    public static IntListCYDiscussion squareNonDestructiveCY(IntListCYDiscussion L){
+
+        if (L == null){
+            return L;
+        } else {
+            IntListCYDiscussion A = squareNonDestructiveCY(L.rest);
+            IntListCYDiscussion B = new IntListCYDiscussion(L.first * L.first, A);
+            return B;
+        }
+
+
+    }
     /**
      * First element of list.
      */
@@ -18,12 +82,12 @@ public class IntList {
     /**
      * Remaining elements of list.
      */
-    public IntList rest;
+    public IntListCYDiscussion rest;
 
     /**
      * A List with first FIRST0 and rest REST0.
      */
-    public IntList(int first0, IntList rest0) {
+    public IntListCYDiscussion(int first0, IntListCYDiscussion rest0) {
         first = first0;
         rest = rest0;
     }
@@ -31,7 +95,7 @@ public class IntList {
     /**
      * A List with null rest, and first = 0.
      */
-    public IntList() {
+    public IntListCYDiscussion() {
     /* NOTE: public IntList () { }  would also work. */
         this(0, null);
     }
@@ -39,7 +103,7 @@ public class IntList {
     /**
      * Returns a list equal to L with all elements squared. Destructive.
      */
-    public static void dSquareList(IntList L) {
+    public static void dSquareList(IntListCYDiscussion L) {
 
         while (L != null) {
             L.first = L.first * L.first;
@@ -50,15 +114,15 @@ public class IntList {
     /**
      * Returns a list equal to L with all elements squared. Non-destructive.
      */
-    public static IntList squareListIterative(IntList L) {
+    public static IntListCYDiscussion squareListIterative(IntListCYDiscussion L) {
         if (L == null) {
             return null;
         }
-        IntList res = new IntList(L.first * L.first, null);
-        IntList ptr = res;
+        IntListCYDiscussion res = new IntListCYDiscussion(L.first * L.first, null);
+        IntListCYDiscussion ptr = res;
         L = L.rest;
         while (L != null) {
-            ptr.rest = new IntList(L.first * L.first, null);
+            ptr.rest = new IntListCYDiscussion(L.first * L.first, null);
             L = L.rest;
             ptr = ptr.rest;
         }
@@ -68,11 +132,11 @@ public class IntList {
     /**
      * Returns a list equal to L with all elements squared. Non-destructive.
      */
-    public static IntList squareListRecursive(IntList L) {
+    public static IntListCYDiscussion squareListRecursive(IntListCYDiscussion L) {
         if (L == null) {
             return null;
         }
-        return new IntList(L.first * L.first, squareListRecursive(L.rest));
+        return new IntListCYDiscussion(L.first * L.first, squareListRecursive(L.rest));
     }
 
     /** DO NOT MODIFY ANYTHING ABOVE THIS LINE! */
@@ -83,51 +147,18 @@ public class IntList {
      * *  elements of B.  May modify items of A. Don't use 'new'.
      */
 
-    public static IntList dcatenate(IntList A, IntList B) {
-        IntList ptr = A;
-        while (ptr.rest != null){
-            ptr = ptr.rest;
-        }
-        ptr.rest = B;
-        return A;
+    public static IntListCYDiscussion dcatenate(IntListCYDiscussion A, IntListCYDiscussion B) {
+        //TODO:  fill in method
+        return null;
     }
 
     /**
      * Returns a list consisting of the elements of A followed by the
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
-    public static IntList catenate(IntList A, IntList B) {
-        IntList X = new IntList(A.first, null);
-        IntList ptrX = X;
-        IntList ptrAB = A.rest;
-        while (ptrAB != null){
-            ptrX.rest = new IntList(ptrAB.first, null);
-            ptrX = ptrX.rest;
-            ptrAB = ptrAB.rest;
-        }
-        ptrAB = B;
-        while (ptrAB != null){
-            ptrX.rest = new IntList(ptrAB.first, null);
-            ptrX = ptrX.rest;
-            ptrAB = ptrAB.rest;
-        }
-        return X;
-
-
-//        Unfinished recursive version
-//        if (B == null) {
-//            return B;
-//        } else {
-//            IntList tail = catenate(A, B);
-//            IntList X = new IntList(B.first, tail);
-//        }
-//        B = null;
-//        if (A == null){
-//            return A;
-//        } else {
-//            IntList tail = catenate(A, B);
-//            IntList X = new IntList(A.first, tail);
-//        }
+    public static IntListCYDiscussion catenate(IntListCYDiscussion A, IntListCYDiscussion B) {
+        //TODO:  fill in method
+        return null;
     }
 
 
@@ -147,18 +178,18 @@ public class IntList {
      * Returns a new IntList containing the ints in ARGS. You are not
      * expected to read or understand this method.
      */
-    public static IntList list(Integer... args) {
-        IntList result, p;
+    public static IntListCYDiscussion list(Integer... args) {
+        IntListCYDiscussion result, p;
 
         if (args.length > 0) {
-            result = new IntList(args[0], null);
+            result = new IntListCYDiscussion(args[0], null);
         } else {
             return null;
         }
 
         int k;
         for (k = 1, p = result; k < args.length; k += 1, p = p.rest) {
-            p.rest = new IntList(args[k], null);
+            p.rest = new IntListCYDiscussion(args[k], null);
         }
         return result;
     }
@@ -169,11 +200,11 @@ public class IntList {
      * read or understand this method.
      */
     public boolean equals(Object x) {
-        if (!(x instanceof IntList)) {
+        if (!(x instanceof IntListCYDiscussion)) {
             return false;
         }
-        IntList L = (IntList) x;
-        IntList p;
+        IntListCYDiscussion L = (IntListCYDiscussion) x;
+        IntListCYDiscussion p;
 
         for (p = this; p != null && L != null; p = p.rest, L = L.rest) {
             if (p.first != L.first) {
@@ -198,9 +229,9 @@ public class IntList {
      * don't get stuck in an infinite loop.
      */
 
-    private int detectCycles(IntList A) {
-        IntList tortoise = A;
-        IntList hare = A;
+    private int detectCycles(IntListCYDiscussion A) {
+        IntListCYDiscussion tortoise = A;
+        IntListCYDiscussion hare = A;
 
         if (A == null)
             return 0;
@@ -235,7 +266,7 @@ public class IntList {
         int cycleLocation = detectCycles(this);
         int cnt = 0;
 
-        for (IntList p = this; p != null; p = p.rest) {
+        for (IntListCYDiscussion p = this; p != null; p = p.rest) {
             out.format("%s%d", sep, p.first);
             sep = ", ";
 
