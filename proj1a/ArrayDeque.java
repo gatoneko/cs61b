@@ -84,7 +84,11 @@ public class ArrayDeque <Item> {
      * If no such item exists, returns null. Must not alter the deque!
      * */
     public Item get(int index){
-        return null;
+        int arrayHead = plusOne(first);
+        for (int i = 0; i < index; i++) {
+            arrayHead = plusOne(arrayHead);
+        }
+        return array[arrayHead];
     }
 
     private void checkSize(){
@@ -186,5 +190,6 @@ public class ArrayDeque <Item> {
 
 
         myad.printDeque();
+        System.out.println(myad.get(3));
     }
 }
