@@ -10,7 +10,6 @@ import org.junit.Test;
 public class TestArrayDeque1B {
 
     /** Randomly calls methods until there is a discrepancy */
-    // TODO: 2017/06/06  Make this method which is required by the project.
     @Test
     public void randomMethodTest() {
         ArrayDequeSolution<Integer> solution = new ArrayDequeSolution<>();
