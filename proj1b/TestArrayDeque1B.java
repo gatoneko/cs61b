@@ -10,6 +10,11 @@ import org.junit.Test;
 public class TestArrayDeque1B {
 
     /** Randomly calls methods until there is a discrepancy */
+    /** TODO: 2017/06/12 Since we're going to be adding "DequeOperation" objects and putting them to the sequence,
+     *        we need to put every operation into a helper method. eg addLast, addFirst
+     *
+     *
+     */
     @Test
     public void randomMethodTest() {
         ArrayDequeSolution<Integer> solution = new ArrayDequeSolution<>();
