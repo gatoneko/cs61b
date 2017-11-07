@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 
+import java.lang.Exception;
+
 /**
  * Created by cyoste on 2017/08/07.
  */
@@ -90,7 +92,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     Set<K> keySet() {
-
+        throw new UnsupportedOperationException();
     }
 
     /* Removes the mapping for the specified key from this map if present.
@@ -106,12 +108,12 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      * throw an UnsupportedOperationException.*/
     @Override
     V remove(K key, V value) {
-
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Iterator<K> iterator() {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
